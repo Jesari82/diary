@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { fetchEntries, addEntry } from './utils/storage';
+import React, { useState, useEffect } from "react";
+import { fetchEntries, addEntry } from "./utils/storage";
 
 function App() {
   const [entries, setEntries] = useState([]);
-  const [newEntry, setNewEntry] = useState({ title: '', content: '' });
+  const [newEntry, setNewEntry] = useState({ title: "", content: "" });
 
   useEffect(() => {
     const loadedEntries = fetchEntries();
@@ -13,9 +13,9 @@ function App() {
   const handleAddEntry = (newEntry) => {
     if (addEntry(newEntry)) {
       setEntries([newEntry, ...entries]);
-      setNewEntry({ title: '', content: '' }); // Reset form
+      setNewEntry({ title: "", content: "" }); // Reset form
     } else {
-      console.error('Failed to add entry');
+      console.error("Failed to add entry");
     }
   };
 
@@ -27,7 +27,7 @@ function App() {
   return (
     <div>
       <h1>My Diary App</h1>
-      
+
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -38,7 +38,9 @@ function App() {
         <textarea
           placeholder="Content"
           value={newEntry.content}
-          onChange={(e) => setNewEntry({ ...newEntry, content: e.target.value })}
+          onChange={(e) =>
+            setNewEntry({ ...newEntry, content: e.target.value })
+          }
         />
         <button type="submit">Add Entry</button>
       </form>
