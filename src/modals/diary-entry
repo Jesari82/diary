@@ -1,6 +1,0 @@
-export class DiaryEntry {
-  title: string;
-  content: string;
-  date: Date;
-  imgage: any;
-}
