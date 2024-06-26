@@ -1,0 +1,16 @@
+import { DiaryEntry } from "../modals/diary-entry";
+
+class AddEntryForm extends Component {
+  diaryEntry: DiaryEntry;
+
+
+
+
+
+
+
+  
+  render() {
+    return <h1>Hello, {this.props.name}!</h1>;
+  }
+}
