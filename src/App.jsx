@@ -1,6 +1,11 @@
 
 import React, { useState, useEffect } from "react";
 import { fetchEntries, addEntry } from "./utils/storage";
+import Header from "./components/Header";
+import Button from "./components/Button";
+import Search from "./components/Search";
+import List from "./components/List";
+import Footer from "./components/Footer";
 
 function App() {
   const [entries, setEntries] = useState([]);
@@ -26,37 +31,16 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>My Diary App</h1>
-
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Title"
-          value={newEntry.title}
-          onChange={(e) => setNewEntry({ ...newEntry, title: e.target.value })}
-        />
-        <textarea
-          placeholder="Content"
-          value={newEntry.content}
-          onChange={(e) =>
-            setNewEntry({ ...newEntry, content: e.target.value })
-          }
-        />
-        <button type="submit">Add Entry</button>
-      </form>
-
-      <div>
-        {entries.map((entry, index) => (
-          <div key={index}>
-            <h2>{entry.title}</h2>
-            <p>{entry.content}</p>
-            <small>{new Date(entry.date).toLocaleString()}</small>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+    <body class="header mt-8 bg-gray-100 text-gray-800">
+    <Header />
+    <main class="main mx-8 border rounded-lg border-gray-300 p-6">
+      <Button />
+      <Search />
+      <List />
+    </main>
+    <Footer />
+    </body>
+  )
 }
 
 export default App;
