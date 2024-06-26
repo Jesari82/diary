@@ -1,21 +1,22 @@
 import {useState} from "react";
 
-function AddEntryForm({isOpen, onClose, onSave}) {
-    const [entry, setEntry] = useState(
+function AddEntryForm({isOpen, onClose, onSave}) {          //'isOpen' to determine if the form is open, 'onClose' = function to close to form, 'onSave' =functiont to save the form
+
+    const [entry, setEntry] = useState(                     //State to store the form data  
         {
             title: '',
             content: '',
             image: '',
-            date: new Date()
+            date: new Date().toLocaleString()
         });
 
     const handleSubmit = (event) => {
-        event.preventDefault();
+        event.preventDefault();                         //Prevent the default form submission
         onSave(entry);
         onClose();
     };
 
-    const handleInputChange = (event) => {
+    const handleInputChange = (event) => {              //function to update every the entry state, updating the field that changes
         const {name, value} = event.target;
         setEntry(previousEntry => (
             {
@@ -25,8 +26,7 @@ function AddEntryForm({isOpen, onClose, onSave}) {
         ));
     }
 
-
-    if (!isOpen) return null;
+    if (!isOpen) return null;                               //If the form is not open, it renders nothing.
 
     return (
         <div style={{
@@ -43,37 +43,34 @@ function AddEntryForm({isOpen, onClose, onSave}) {
             zIndex: 1050,
             animation: 'fadeIn 0.3s'
         }}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>              
                 <input
-                    type="text"
+                    type="text"                                 //title
                     name="title"
                     value={entry.title}
-                    onChange={handleInputChange}
+                    onChange={handleInputChange}                //attaches the handleInputChange function to the input's change event
                     placeholder="Title"
                 />
                 <textarea
-                    name="content"
+                    name="content"                              //content
                     value={entry.content}
                     onChange={handleInputChange}
                     placeholder="Content"
                 />
                 <input
-                    type="file"
+                    type="file"                                 //image
                     name="image"
                     id="inageUpload"
                     value={entry.image}
                     onChange={handleInputChange}
                     placeholder="Image URL"
                 />
-                <input
-                    type="date"
-                    name="date"
-                    value={entry.date}
-                    onChange={handleInputChange}
-                />
+                <p>
+                {entry.date}
+                </p>
                 <button type="submit">Submit Entry</button>
             </form>
-            <button onClick={onClose}>Close</button>
+            <button onClick={onClose}>Close Entry</button>
         </div>
     )
 }
