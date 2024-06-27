@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { fetchEntries, addEntry } from "./utils/storage";
 import Header from "./components/Header";
@@ -9,7 +8,6 @@ import Footer from "./components/Footer";
 
 function App() {
   const [entries, setEntries] = useState([]);
-  const [newEntry, setNewEntry] = useState({ title: "", content: "" });
 
   useEffect(() => {
     const loadedEntries = fetchEntries();
@@ -19,22 +17,21 @@ function App() {
   const handleAddEntry = (newEntry) => {
     if (addEntry(newEntry)) {
       setEntries([newEntry, ...entries]);
-      setNewEntry({ title: "", content: "" }); // Reset form
     } else {
       console.error("Failed to add entry");
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleAddEntry({ ...newEntry, date: new Date().toISOString() });
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   handleAddEntry({ ...newEntry, date: new Date().toISOString() });
+  // };
 
   return (
     <body class="header mt-8 bg-gray-100 text-gray-800">
     <Header />
     <main class="main mx-8 border rounded-lg border-gray-300 p-6">
-      <Button />
+      <Button onEntryData={handleAddEntry}/>
       <Search />
       <List />
     </main>
