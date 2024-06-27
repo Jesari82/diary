@@ -1,14 +1,17 @@
-const Card = () => {
+const Card = ({index,entry}) => {
     return (
-        <li className="card flex mt-1 border rounded-lg border-gray-300 p-3">
+        <li className="card flex-initial min-w-[600px] border flex rounded-lg border-gray-300 p-4">
             <div className="py-10">
-                <time dateTime="2024-06-25">25.06.2024</time>
+                <time dateTime="2024-06-25">{entry.date}</time>
             </div>
             <div className="py-10 pl-10">
-                <h2>Titel von Eintrag 2</h2>
+                <h2>{entry.title}</h2>
+            </div>
+            <div className="py-10 pl-10">
+                <p>{entry.content}</p>
             </div>
             <div className="pl-10">
-                <img src="https://picsum.photos/100?random=1" alt="Bild2" />
+                <img src={entry.image} alt="Bild2" className="w-52" />
             </div>
         </li>
     );
