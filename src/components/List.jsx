@@ -2,7 +2,7 @@ import Card from "./Card";
 
 const List = () => {
     return (
-        <ul class="entries pt-4">
+        <ul className="entries pt-4">
             <Card />
             <Card />
             <Card />

@@ -1,7 +1,7 @@
 const Header = () => {
   return (
-    <header class="mx-8">
-      <h1 class="pb-8 font-bold text-xl">Mein persönliches Tagebuch</h1>
+    <header className="mx-8">
+      <h1 className="pb-8 font-bold text-xl">Mein persönliches Tagebuch</h1>
     </header>
   );
 };
