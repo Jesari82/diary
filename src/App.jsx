@@ -1,45 +1,62 @@
 
-import React, { useState, useEffect } from "react";
-import { fetchEntries, addEntry } from "./utils/storage";
+import { useEffect, useState } from "react";
+
+import { fetchEntries,validateEntryDate } from "./utils/storage";
 import Header from "./components/Header";
 import Button from "./components/Button";
 import Search from "./components/Search";
 import List from "./components/List";
 import Footer from "./components/Footer";
+import AddEntryForm from "./components/AddEntryForm";
+import Modal from "./components/Modal";
 
 function App() {
-  const [entries, setEntries] = useState([]);
-  const [newEntry, setNewEntry] = useState({ title: "", content: "" });
+  const [showModal, setShowModal] = useState(false);  //State to show or hide the modal
 
-  useEffect(() => {
-    const loadedEntries = fetchEntries();
-    setEntries(loadedEntries);
-  }, []);
-
-  const handleAddEntry = (newEntry) => {
-    if (addEntry(newEntry)) {
-      setEntries([newEntry, ...entries]);
-      setNewEntry({ title: "", content: "" }); // Reset form
-    } else {
-      console.error("Failed to add entry");
-    }
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleAddEntry({ ...newEntry, date: new Date().toISOString() });
+  const date = new Date();
+  const options = {
+    year: 'numeric', 
+    month: 'numeric', 
+    day: 'numeric',
   };
+
+  const handleAddButton = () => { 
+    //function to show the modal  
+    //validation to show the modal
+    console.log('dsdsd',validateEntryDate());
+    if (validateEntryDate()) {   //get all the entries from the storage
+      setShowModal(true);
+        }else{
+          setShowModal(true); //you can uncomment this line to test the modal
+          alert("return tomorrow to add a new entry");
+        }
+    };
+
+  const [entries, setEntries] = useState([]); //State to fetch the entries
+    useEffect(() => {
+      const loadedEntries = fetchEntries(); // fetch all enteies from storage and saved in {entries} state
+      setEntries(loadedEntries);
+    }, []);
 
   return (
-    <body class="header mt-8 bg-gray-100 text-gray-800">
-    <Header />
-    <main class="main mx-8 border rounded-lg border-gray-300 p-6">
-      <Button />
-      <Search />
-      <List />
-    </main>
-    <Footer />
-    </body>
+    <>
+      <Header />
+      <main className="main mx-8 border rounded-lg border-gray-300 p-6">
+        <Button onClick={handleAddButton} />
+        <Search />
+        <List entries={entries}/>
+        
+        <Modal show={showModal} onClose={handleCloseModal}>
+          <h2 className="text-xl font-bold mb-4">Add Entry</h2>
+          <AddEntryForm closeModal={handleCloseModal} setEntries={setEntries} />
+        </Modal>
+      </main>
+      <Footer />
+    </>
   )
 }
 

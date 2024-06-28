@@ -20,12 +20,31 @@ export const fetchEntries = () => {
     }
 };
 
+
+export const validateEntryDate = () => {
+    const entries = fetchEntries();
+    const options = {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+    };
+    if (entries.length === 0) {
+        return true;
+    }
+    const result =  entries.filter(entry => entry.date === 
+    new Date().toLocaleString('de-DE', options));
+    if (result.length > 0) {
+        return false;
+    }
+    return true;
+};
+
 // Add a new entry to the array in localStorage
 export const addEntry = (newEntry) => {
     try {
         const entries = fetchEntries();
         entries.unshift(newEntry); // Add new entry to the beginning of the array
-        saveEntries(entries);
+        saveEntries(entries); // Save the updated array to localStorage
         return true;
     } catch (error) {
         console.error('Error adding entry:', error);
